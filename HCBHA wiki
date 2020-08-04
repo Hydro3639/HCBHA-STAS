@@ -18,7 +18,7 @@ Step 2, Nanopore long-read assembly using Flye
 
 # Flye assembly
   cd 02-Flye
-  flye --nano-raw ../01-Pre/test_lr.fastq -t 40 -i 5 -g 4m -o flye-polish --meta
+  flye --nano-raw ../01-Pre/test_lr.fastq -t 40 -i 5 -g 5m -o flye-polish --meta
 ## filter flye-assembled contigs length using 1 Kbp
   cat flye-polish/assembly.fasta | seqkit seq -m 1000 -o flye_assembled_len1K.fasta
 
@@ -175,7 +175,7 @@ Step 6 Re-assembly
    ls *fasta | cut -d- -f1 | cut -d. -f1-2 |while read line; do echo "sed -i 's/^>/>polished_02_${line}_/g' ${line}.fa-unicycler_assembly.fasta"; done > rename-header.cmd
    parallel -j40 < rename-header.cmd
    cat *fasta > ../polished_02.fasta
-   cp ../polished_02.fasta ../../../07-Tri-binning
+   cp ../polished_02.fasta ../../../07-Final-binning
 
 Step 7 Final binning
  metawrap binning -o INITIAL_BINNING -t 40 -a polished_02.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq
