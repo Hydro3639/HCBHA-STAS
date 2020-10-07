@@ -1,13 +1,17 @@
 Overview
 
-Long reads sequencing has shown the tremendous potential to resolve genomic assembly challenges e.g., long repeat regions and structural variants. The characteristics of long reads, on the one hand, could greatly improve the contiguity of the genome assemblies, on the other hand, assembled contigs of the error-prone long reads have a much higher error rates at the nucleotide level compared with the high-accuracy short-read based assemblies. Recently, a few assemblers have been developed to take the advantage of the long reads, including the hybrid assembler Unicycler, OPERA-MS and long-read assembler, Canu and Flye, and have been documented by various studies. However, each assembler has its own limitations, e.g., feasibility and computing resources demand, when used as an assembler for metagenomes of high-complexity environmental samples. So, there is an urgent need to develop a new workflow that could resolve the above issues and be used for the high-complexity microbiome.
+Long reads sequencing has shown the tremendous potential to resolve genomic assembly challenges e.g., long repeat regions and structural variants. The characteristics of long
+reads, on the one hand, could greatly improve the contiguity of the genome assemblies, on the other hand, assembled contigs of the error-prone long reads have a much higher error rates at the nucleotide level compared with the high-accuracy short-read based assemblies. Recently, a few assemblers have been developed to take the advantage of the long reads, including the hybrid assembler Unicycler, OPERA-MS and long-read assembler, Canu and Flye, and have been documented by various studies. However, each assembler has its own limitations, e.g., feasibility and computing resources demand, when used as an assembler for metagenomes of high-complexity environmental samples. So, there is an urgent need to develop a new workflow that could resolve the above issues and be used for the high-complexity microbiome.
 
-We firstly developed the hybrid assembly workflow for high-complexity systems and integrated the workflow into the Hierarchical Clustering Based Hybrid Assembly (HCBHA) approach to reconstruct more high-quality genomes. Totally, seven steps and various tools were integrated into the hybrid assembly workflow to reconstruct high-quality genomes from the AS sample. 
+We firstly developed the hybrid assembly workflow for high-complexity systems and integrated the workflow into the Hierarchical Clustering Based Hybrid Assembly (HCBHA) 
+approach to reconstruct more high-quality genomes. Totally, seven steps and various tools were integrated into the hybrid assembly workflow to reconstruct high-quality 
+genomes from the AS sample. 
 
 Hybrid assembly workflow
 
 mkdir 01-Pre  02-Flye  03-Initial-binning  04-Initial_bins_polish  05-Re-binning  06-Re-assembly  07-Final-binning
-Step 1, both Illumina short reads and ONT long reads need prepared. e.g., test_S1_1.fastq and test_S1_2.fastq, test_S2_1.fastq and test_S2_2.fastq for short reads and test_lr.fastq for long reads
+Step 1, both Illumina short reads and ONT long reads need prepared. e.g., test_S1_1.fastq and test_S1_2.fastq, test_S2_1.fastq and test_S2_2.fastq for short reads 
+and test_lr.fastq for long reads
 ## if your sample was highly sequenced, we strongly suggested you to subsample your data accrodingly. Then store the sequences to the 01-Pre folder
 
 mkdir 01-Pre H1-SRs && cp test_S1_*.fastq test_S2_*.fastq 01-Pre/H1-SRs && cp test_lr.fastq 01-Pre
@@ -65,7 +69,8 @@ Step 4 Initial bins polish
   cat Non-zero-Refined-binsID  | while read line; do echo "seqtk subseq ../../01-Pre/H5-LRs.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
   parallel -j40 < LRs-eachBin-Seq-extra.cmd
 
-# for each refined bin, extract the SRs ID which mapped onto the given bin, and then extract the corresponding sequences using the ID, for SRs, as it might extract too much coverage of certain bins, so only randomly selected 1 million paired SRs would be used to do the polishing
+# for each refined bin, extract the SRs ID which mapped onto the given bin, and then extract the corresponding sequences using the ID, for SRs, as it might extract too much 
+coverage of certain bins, so only randomly selected 1 million paired SRs would be used to do the polishing
    cat Non-zero-Refined-binsID |  while read line; do echo "grep ${line} ../filtered_80_80-sr.paf | awk '{print \$1}' > SRs/${line}_80_80.sr.ID" ;done > SRs-eachBin-ID-extra.cmd
    parallel -j40 < SRs-eachBin-ID-extra.cmd
    cd SRs && mkdir tmp
@@ -103,7 +108,8 @@ Step 4 Initial bins polish
    cp polished_01.fasta ../../05-Re-binning/
 
 Step 5 Re-binning
-# This step using MetaWRAP: the polished raw bins from the above step, might contain mis-grouping, so all the polished initial bins would be concatenate as assembled contigs (polished_01.fasta) combined with shor reads from UASB, to do the binning again by MetaWRAP; pwd: Re-binning
+# This step using MetaWRAP: the polished raw bins from the above step, might contain mis-grouping, so all the polished initial bins would be concatenate as assembled contigs 
+(polished_01.fasta) combined with shor reads from UASB, to do the binning again by MetaWRAP; pwd: Re-binning
   metawrap binning -o INITIAL_BINNING -t 40 -a polished_01.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq 
   metawrap bin_refinement -o BIN_REFINEMENT -c 50 -x 10 -t 40 -A INITIAL_BINNING/metabat2_bins/ -B INITIAL_BINNING/maxbin2_bins
 
