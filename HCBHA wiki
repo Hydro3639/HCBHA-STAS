@@ -70,7 +70,7 @@ Step 4 Initial bins polish
    
   ls -lht LRs/*ID |awk '$5!=0' |awk '{print $NF}'| cut -d"/" -f2 | cut -d_ -f1-2 > Non-zero-Refined-binsID
 
-  cat Non-zero-Refined-binsID  | while read line; do echo "seqtk subseq ../../01-Pre/H5-LRs.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
+  cat Non-zero-Refined-binsID  | while read line; do echo "seqtk subseq ../../01-Pre/test_lr.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
   parallel -j40 < LRs-eachBin-Seq-extra.cmd
 
 # for each refined bin, extract the SRs ID which mapped onto the given bin, and then extract the corresponding sequences using the ID, for SRs, as it might extract too much 
