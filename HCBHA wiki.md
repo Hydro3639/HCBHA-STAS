@@ -160,11 +160,13 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
   ```
 \# Bin ID extraction
   
-  ```cat ../re-binsID | while read line; do echo "grep '^>' ../../05-Re-binning/BIN_REFINEMENT/metawrap_50_10_bins/$line | sed -e 's/^>//g' > ID/${line}_ID "; done > binID-extra.cmd
+  ```
+  cat ../re-binsID | while read line; do echo "grep '^>' ../../05-Re-binning/BIN_REFINEMENT/metawrap_50_10_bins/$line | sed -e 's/^>//g' > ID/${line}_ID "; done > binID-extra.cmd
   parallel -j40 < binID-extra.cmd
   ```
 \# for each rebined bin, extract the LRs ID which mapped onto the given bin, and then extract the corresponding sequences using the ID
-  ```cat ../re-binsID | while read line; do echo "grep -wFf ID/${line}_ID ../filtered_70_70-lr.paf | awk '{print \$1}' > LRs/${line}_70_70.lr.ID "; done > LRs-eachBin-ID-extra.cmd
+  ```
+  cat ../re-binsID | while read line; do echo "grep -wFf ID/${line}_ID ../filtered_70_70-lr.paf | awk '{print \$1}' > LRs/${line}_70_70.lr.ID "; done > LRs-eachBin-ID-extra.cmd
   parallel -j40 < LRs-eachBin-ID-extra.cmd 
    
   ls -lht LRs/*ID |awk '$5!=0' | awk '{print $NF}'| cut -d"/" -f2 | cut -d_ -f1 > Non-zero-Refined-binsID
