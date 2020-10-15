@@ -11,7 +11,7 @@ of the long reads, including the hybrid assembler [Unicycler](https://github.com
 ```
 mkdir 01-Pre  02-Flye  03-Initial-binning  04-Initial_bins_polish  05-Re-binning  06-Re-assembly  07-Final-binning
 ```
-#### Step 1, Metagenomic Dataset prepare
+#### Step 1 Metagenomic Dataset prepare
 \# both Illumina short reads and ONT long reads need prepared. e.g., test_S1_1.fastq and test_S1_2.fastq, test_S2_1.fastq and test_S2_2.fastq for short reads and test_lr.fastq for long reads
 \# if your sample was highly sequenced, I strongly suggested you to subsample your data accrodingly using `seqtk` or `seqkit`. Then store the sequences to the 01-Pre folder
 
@@ -20,7 +20,7 @@ mkdir 01-Pre H1-SRs && cp test_S1_*.fastq test_S2_*.fastq 01-Pre/H1-SRs && cp te
 cat test_*_1.fastq > test_1.fastq
 cat test_*_2.fastq > test_2.fastq
 ```
-#### Step 2, Nanopore long-read assembly using Flye
+#### Step 2 Nanopore long-read assembly using Flye
 
 \# Flye assembly
   ```
@@ -31,7 +31,7 @@ cat test_*_2.fastq > test_2.fastq
   ```
   cat flye-polish/assembly.fasta | seqkit seq -m 1000 -o flye_assembled_len1K.fasta
   ```
-#### Step 3, Initial binning
+#### Step 3 Initial binning
 
 \# Initial binning to reconstruct raw bins, which might contain many mis-binnings with low-accuracy contigs
   ```
