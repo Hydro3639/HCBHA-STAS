@@ -222,9 +222,9 @@ metawrap bin_refinement -o BIN_REFINEMENT -c 50 -x 10 -t 40 -A INITIAL_BINNING/m
 ```
 #########################################################################################################
 
-* After the hybrid assembled genomes were retrieved from the system, then select the qualified MAGs, in our study, we choosed the MAGs with completeness >=90%, 
+* After the hybrid assembled genomes were retrieved from the system, select the qualified MAGs, in our study, we choosed the MAGs with completeness >=90%, 
 contamination <=10% and contig contig <=30. To facilitate the reconstrcution of the remaining community members, we need to take out the short and long reads
-that assigned to the qualified MAGs using minimap2, then repeat the above hybrid assembly process
+that assigned to the qualified MAGs using minimap2, then repeat the above hybrid assembly process. For the iterative strategy, please see our previous work: [`High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method`](https://github.com/Hydro3639/Iterative-Hybrid-Assembly-for-enrichment-system "High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method").
 
 
 
