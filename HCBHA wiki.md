@@ -112,7 +112,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
    cat Non-zero-Refined-binsID | while read line; do echo "unicycler-runner.py --no_correct -1 SRs/${line}_80_80.sr_1.fastq -2 SRs/${line}_80_80.sr_2.fastq -l LRs/${line}_70_70.lr.fastq -t 15 --min_fasta_length 1000 -o Unicycler/${line}-unicycler"; done > Initial_bins_polish.cmd   
    parallel -j3 < Initial_bins_polish.cmd 
    ```
-\#collect all polished initial bins and rename; pwd: Initial_bins_polish/Bin-cluster
+\# collect all polished initial bins and rename; pwd: Initial_bins_polish/Bin-cluster
    ```
    mkdir polish-01
    find -name assembly.fasta > tmpID
