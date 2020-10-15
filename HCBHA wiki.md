@@ -176,7 +176,8 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
   cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test_lr.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
   parallel -j40 < LRs-eachBin-Seq-extra.cmd
 ```
-# each Bin mapped SRs extraction: firstly extract mapped all SRs ID then paired SRs sequences
+\# each Bin mapped SRs extraction: firstly extract mapped all SRs ID then paired SRs sequences
+  ```
   cat Non-zero-Refined-binsID |  while read line; do echo "grep -wFf ID/${line}_ID ../filtered_80_80-sr.paf | awk '{print \$1}' > SRs/${line}_80_80.sr.ID" ;done > SRs-eachBin-ID-extra.cmd
   parallel -j40 < SRs-eachBin-ID-extra.cmd
 
@@ -184,42 +185,48 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
    ls *ID | while read line; do echo "cat ${line} | sort | uniq > tmp/${line}"; done > de-duplicate.cmd
    parallel -j40 < de-duplicate.cmd
    cd ../
-# 1M subsampled Paired SRs extraction
-   cat Non-zero-Refined-binsID | while read line; do echo "cat SRs/tmp/${line}_80_80.sr.ID | shuf | head -1000000 > SRs/${line}_80_80.sr_1M.ID" ; done > SRs-1M-extra.cmd
-   parallel -j40 < SRs-1M-extra.cmd
-
+```
+\# 1M subsampled Paired SRs extraction
+ ```
+ cat Non-zero-Refined-binsID | while read line; do echo "cat SRs/tmp/${line}_80_80.sr.ID | shuf | head -1000000 > SRs/${line}_80_80.sr_1M.ID" ; done > SRs-1M-extra.cmd
+ parallel -j40 < SRs-1M-extra.cmd
    cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test-sr_1.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_1.fastq "; done > SRs-eachBin-seq_1-extra.cmd
    cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test-sr_2.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_2.fastq "; done > SRs-eachBin-seq_2-extra.cmd
 
    parallel -j40 < SRs-eachBin-seq_1-extra.cmd
    parallel -j40 < SRs-eachBin-seq_2-extra.cmd
-
-# polishing
-   mkdir Unicycler
+```
+\# polishing
+ ```
+ mkdir Unicycler
 
    cat Non-zero-Refined-binsID | while read line; do echo "unicycler-runner.py --no_correct -1 SRs/${line}_80_80.sr_1.fastq -2 SRs/${line}_80_80.sr_2.fastq -l LRs/${line}_70_70.lr.fastq -t 15 --min_fasta_length 1000 -o Unicycler/${line}-unicycler"; done > re-assembly.cmd
    parallel -j3 < re-assembly.cmd
-
-## prepare for the next step
-   mkdir polish_02
+```
+\## prepare for the next step
+ ```
+ mkdir polish_02
    cd Unicycler 
    find -name assembly.fasta > tmp-ID
    cat tmp-ID | cut -d/ -f2-3 | tr "/" "_" | sed -e 's/^/..\/polish_02\//g' | paste tmp-ID - | sed -e 's/^/cp /g' > cp.cmd
    parallel -j30 < cp.cmd
-## rename header of the each bin
-   cd ../polish_02
+```
+\## rename header of the each bin
+ ```
+ cd ../polish_02
    ls *fasta | cut -d- -f1 | cut -d. -f1-2 |while read line; do echo "sed -i 's/^>/>polished_02_${line}_/g' ${line}.fa-unicycler_assembly.fasta"; done > rename-header.cmd
    parallel -j40 < rename-header.cmd
    cat *fasta > ../polished_02.fasta
    cp ../polished_02.fasta ../../../07-Final-binning
-
+```
 #### Step 7 Final binning
- metawrap binning -o INITIAL_BINNING -t 40 -a polished_02.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq
+```
+metawrap binning -o INITIAL_BINNING -t 40 -a polished_02.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq
  metawrap bin_refinement -o BIN_REFINEMENT -c 50 -x 10 -t 40 -A INITIAL_BINNING/metabat2_bins/ -B INITIAL_BINNING/maxbin2_bins
-
+```
 #########################################################################################################
 
-After the hybrid assembled genomes were retrieved from the system, then select the qualified MAGs, in our study, we choosed the MAGs with completeness >=90%, 
+* After the hybrid assembled genomes were retrieved from the system, then select the qualified MAGs, in our study, we choosed the MAGs with completeness >=90%, 
 contamination <=10% and contig contig <=30. To facilitate the reconstrcution of the remaining community members, we need to take out the short and long reads
 that assigned to the qualified MAGs using minimap2, then repeat the above hybrid assembly process
 
