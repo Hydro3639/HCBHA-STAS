@@ -11,11 +11,11 @@ We firstly developed the hybrid assembly workflow for high-complexity systems an
 approach to reconstruct more high-quality genomes. Totally, seven steps and various tools were integrated into the hybrid assembly workflow to reconstruct high-quality 
 genomes from the AS sample. 
 
-## Hybrid assembly workflow
+### Hybrid assembly workflow
 ```
 mkdir 01-Pre  02-Flye  03-Initial-binning  04-Initial_bins_polish  05-Re-binning  06-Re-assembly  07-Final-binning
 ```
-### Step 1, Metagenomic Dataset prepare
+#### Step 1, Metagenomic Dataset prepare
 \# both Illumina short reads and ONT long reads need prepared. e.g., test_S1_1.fastq and test_S1_2.fastq, test_S2_1.fastq and test_S2_2.fastq for short reads and test_lr.fastq for long reads
 \# if your sample was highly sequenced, I strongly suggested you to subsample your data accrodingly using `seqtk` or `seqkit`. Then store the sequences to the 01-Pre folder
 
@@ -24,18 +24,18 @@ mkdir 01-Pre H1-SRs && cp test_S1_*.fastq test_S2_*.fastq 01-Pre/H1-SRs && cp te
 cat test_*_1.fastq > test_1.fastq
 cat test_*_2.fastq > test_2.fastq
 ```
-### Step 2, Nanopore long-read assembly using Flye
+#### Step 2, Nanopore long-read assembly using Flye
 
-##### Flye assembly
+\# Flye assembly
   ```
   cd 02-Flye
   flye --nano-raw ../01-Pre/test_lr.fastq -t 40 -i 5 -g 5m -o flye-polish --meta
   ```
-##### filter flye-assembled contigs length using 1 Kbp
+\# filter flye-assembled contigs length using 1 Kbp
   ```
   cat flye-polish/assembly.fasta | seqkit seq -m 1000 -o flye_assembled_len1K.fasta
   ```
-### Step 3, Initial binning
+#### Step 3, Initial binning
 
 \# Initial binning to reconstruct raw bins, which might contain many mis-binnings with low-accuracy contigs
   ```
@@ -53,7 +53,7 @@ cat test_*_2.fastq > test_2.fastq
   cat *fa > Refined-bins.fasta && cp Refined-bins.fasta ../../04-Initial_bins_polish
   ls *fa > Refined-binsID && cp Refined-binsID ../../04-Initial_bins_polish
   ```
-### Step 4 Initial bins polish
+#### Step 4 Initial bins polish
 \# this step was to correct LRs assembled contigs grouped from the initial binning step, including mapping, filtering, ID extraction, Seq extraction and polish using unicycler
   ```
   cd ../../04-Initial_bins_polish
@@ -130,7 +130,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
    cd ../
    cp polished_01.fasta ../../05-Re-binning/
   ```
-### Step 5 Re-binning
+#### Step 5 Re-binning
 \# This step using MetaWRAP: the polished raw bins from the above step, might contain mis-grouping, so all the polished initial bins would be concatenate as assembled contigs 
 (polished_01.fasta) combined with short reads, to do the binning again by MetaWRAP; pwd: Re-binning
   ```
@@ -145,7 +145,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
   cd ../../
   cp re-bins.fasta re-binsID ../06-Re-assembly
   ```
-### Step 6 Re-assembly
+#### Step 6 Re-assembly
 \#Similar with Step 4 Mapping, filtering, ID extraction, Seq extraction and polish using unicycler
 
 \# LRs mapping and filtering 70 && 70
@@ -213,7 +213,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
    cat *fasta > ../polished_02.fasta
    cp ../polished_02.fasta ../../../07-Final-binning
 
-### Step 7 Final binning
+#### Step 7 Final binning
  metawrap binning -o INITIAL_BINNING -t 40 -a polished_02.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq
  metawrap bin_refinement -o BIN_REFINEMENT -c 50 -x 10 -t 40 -A INITIAL_BINNING/metabat2_bins/ -B INITIAL_BINNING/maxbin2_bins
 
