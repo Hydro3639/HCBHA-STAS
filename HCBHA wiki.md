@@ -5,9 +5,9 @@ long reads, on the one hand, could greatly improve the contiguity of the genome 
 higher error rates at the nucleotide level compared with the high-accuracy short-read based assemblies. Recently, a few assemblers have been developed to take the advantage
 of the long reads, including the hybrid assembler [Unicycler](https://github.com/rrwick/Unicycler "Unicycler"), [OPERA-MS](https://github.com/CSB5/OPERA-MS "OPERA-MS") and the long-read assembler, [Canu](https://github.com/marbl/canu "Canu"), [Flye](https://github.com/fenderglass/Flye "Flye"), [Trycycler](https://github.com/rrwick/Trycycler "Trycycler"), [Raven](https://github.com/lbcb-sci/raven "Raven"), [wtdbg2](https://github.com/ruanjue/wtdbg2 "wtdbg2"), [Shasta](https://github.com/chanzuckerberg/shasta "shasta") and etc.. They have been documented by various studies. However, each assembler has its own limitations, e.g., feasibility and computing resources demand, when used as an assembler for metagenomes of high-complexity environmental samples. So, there is an urgent need to develop a new workflow that could resolve the above issues and be used for the high-complexity microbiome.
 
-* We firstly developed  the Hierarchical Clustering Based Hybrid Assembly (HCBHA) approach for high-complexity ecosystems and integrated the iterative strategy into the workflow to reconstruct more high-quality genomes. Totally, seven steps and various tools were integrated into the hybrid assembly workflow to reconstruct high-quality genomes from the AS sample. 
+* We firstly developed  the Hierarchical Clustering Based Hybrid Assembly (HCBHA) workflow for high-complexity ecosystems and integrated the iterative strategy into the workflow to reconstruct more high-quality genomes. Totally, seven steps and various tools were integrated into the hybrid assembly workflow to reconstruct high-quality genomes from the AS sample. 
 
-### Hybrid assembly workflow
+### Hierarchical Clustering Based Hybrid Assembly (HCBHA) workflow
 ```
 mkdir 01-Pre  02-Flye  03-Initial-binning  04-Initial_bins_polish  05-Re-binning  06-Re-assembly  07-Final-binning
 ```
