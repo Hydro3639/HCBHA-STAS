@@ -96,7 +96,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
    mkdir Unicycler
 
    cat Non-zero-Refined-binsID | while read line; do echo "unicycler-runner.py --no_correct -1 SRs/${line}_80_80.sr_1.fastq -2 SRs/${line}_80_80.sr_2.fastq -l LRs/${line}_70_70.lr.fastq -t 15 --min_fasta_length 1000 -o Unicycler/${line}-unicycler"; done > Initial_bins_polish.cmd   
-   parallel -j3 < re-assembly.cmd
+   parallel -j3 < Initial_bins_polish.cmd 
 
 #collect all polished initial bins and rename; pwd: Initial_bins_polish/Bin-cluster
    mkdir polish-01
@@ -113,7 +113,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
 
 Step 5 Re-binning
 # This step using MetaWRAP: the polished raw bins from the above step, might contain mis-grouping, so all the polished initial bins would be concatenate as assembled contigs 
-(polished_01.fasta) combined with shor reads from UASB, to do the binning again by MetaWRAP; pwd: Re-binning
+(polished_01.fasta) combined with short reads, to do the binning again by MetaWRAP; pwd: Re-binning
   metawrap binning -o INITIAL_BINNING -t 40 -a polished_01.fasta --metabat2 --maxbin2 ../01-Pre/H1-SRs/test-*fastq 
   metawrap bin_refinement -o BIN_REFINEMENT -c 50 -x 10 -t 40 -A INITIAL_BINNING/metabat2_bins/ -B INITIAL_BINNING/maxbin2_bins
 
@@ -147,7 +147,7 @@ Step 6 Re-assembly
    
   ls -lht LRs/*ID |awk '$5!=0' | awk '{print $NF}'| cut -d"/" -f2 | cut -d_ -f1 > Non-zero-Refined-binsID
    
-  cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/H5-LRs.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
+  cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test_lr.fastq LRs/${line}_70_70.lr.ID > LRs/${line}_70_70.lr.fastq "; done >LRs-eachBin-Seq-extra.cmd
   parallel -j40 < LRs-eachBin-Seq-extra.cmd
 
 # each Bin mapped SRs extraction: firstly extract mapped all SRs ID then paired SRs sequences
@@ -162,8 +162,8 @@ Step 6 Re-assembly
    cat Non-zero-Refined-binsID | while read line; do echo "cat SRs/tmp/${line}_80_80.sr.ID | shuf | head -1000000 > SRs/${line}_80_80.sr_1M.ID" ; done > SRs-1M-extra.cmd
    parallel -j40 < SRs-1M-extra.cmd
 
-   cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/H5-UASB_1.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_1.fastq "; done > SRs-eachBin-seq_1-extra.cmd
-   cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/H5-UASB_2.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_2.fastq "; done > SRs-eachBin-seq_2-extra.cmd
+   cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test-sr_1.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_1.fastq "; done > SRs-eachBin-seq_1-extra.cmd
+   cat Non-zero-Refined-binsID | while read line; do echo "seqtk subseq ../../01-Pre/test-sr_2.fastq SRs/${line}_80_80.sr_1M.ID  > SRs/${line}_80_80.sr_2.fastq "; done > SRs-eachBin-seq_2-extra.cmd
 
    parallel -j40 < SRs-eachBin-seq_1-extra.cmd
    parallel -j40 < SRs-eachBin-seq_2-extra.cmd
