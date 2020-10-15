@@ -1,4 +1,4 @@
-*### In brief, seven steps involved in hybrid assembly workflow for high-complexity systems are:
+* ### In brief, seven steps involved in hybrid assembly workflow for high-complexity systems are:
 \# Please revise the corresponding file name before run the command!
 
 ##### Step 1: Reads preparation
