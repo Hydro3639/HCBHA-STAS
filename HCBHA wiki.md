@@ -1,7 +1,7 @@
 ## Overview
 
 Long reads sequencing has shown the tremendous potential to resolve genomic assembly challenges e.g., long repeat regions and structural variants. The characteristics of 
-longreads, on the one hand, could greatly improve the contiguity of the genome assemblies, on the other hand, assembled contigs of the error-prone long reads have a much 
+long reads, on the one hand, could greatly improve the contiguity of the genome assemblies, on the other hand, assembled contigs of the error-prone long reads have a much 
 higher error rates at the nucleotide level compared with the high-accuracy short-read based assemblies. Recently, a few assemblers have been developed to take the advantage
 of the long reads, including the hybrid assembler Unicycler, OPERA-MS and long-read assembler, Canu and Flye, and have been documented by various studies. However, each 
 assembler has its own limitations, e.g., feasibility and computing resources demand, when used as an assembler for metagenomes of high-complexity environmental samples. 
