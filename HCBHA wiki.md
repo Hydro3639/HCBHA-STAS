@@ -16,7 +16,7 @@ mkdir 01-Pre  02-Flye  03-Initial-binning  04-Initial_bins_polish  05-Re-binning
 \# if your sample was highly sequenced, I strongly suggested you to subsample your data accrodingly using `seqtk` or `seqkit`. Then store the sequences to the 01-Pre folder
 
 ```
-mkdir 01-Pre H1-SRs && cp test_S1_*.fastq test_S2_*.fastq 01-Pre/H1-SRs && cp test_lr.fastq 01-Pre
+mkdir 01-Pre/H1-SRs && cp test_S1_*.fastq test_S2_*.fastq 01-Pre/H1-SRs && cp test_lr.fastq 01-Pre
 cat test_*_1.fastq > test_1.fastq
 cat test_*_2.fastq > test_2.fastq
 ```
