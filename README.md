@@ -2,4 +2,14 @@
 
 * For instructions, usage and explanations of the HCBHA approach, please refer to the [`HCBHA wiki`](https://github.com/Hydro3639/HCBHA-STAS/blob/master/HCBHA%20wiki.md "HCBHA wiki")!
 * Aside from the evaluation of the proposed iterative HCBHA approach using the Mock dasets, we also demostrated the performance of the approach using a highly complex metagenomic sample, the Activated Sludge sample from Shatin wastewater treatment plant, Hong Kong.
-* 
+* If you are using the IHA workflow for the genome reconstruction, please cite the corresponding reference papers, particullary the paper described the [metaFlye](https://github.com/fenderglass/Flye), [Unicycler](https://github.com/rrwick/Unicycler)
+  * [metaFlye: scalable long-read metagenome assembly using repeat graphs](https://www.nature.com/articles/s41592-020-00971-x)
+  * [Unicycler: Resolving bacterial genome assemblies from short and long sequencing reads](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005595) <br>
+  * [MetaWRAP—a flexible pipeline for genome-resolved metagenomic data analysis](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-018-0541-1)
+  * [Minimap2: pairwise alignment for nucleotide sequences](https://academic.oup.com/bioinformatics/article/34/18/3094/4994778)
+  * [Fast gapped-read alignment with Bowtie 2](https://www.nature.com/articles/nmeth.1923)
+  * [seqtk](https://github.com/lh3/seqtk) (https://github.com/lh3/seqtk)
+  * [SeqKit: a cross-platform and ultrafast toolkit for FASTA/Q file manipulation](https://github.com/shenwei356/seqkit)
+#### Citing our paper
+* If you found IHA workflow useful in your research, a citation would be appreciated! <br>
+Charting the complexity of an activated sludge microbiome through a hybrid sequencing strategy
