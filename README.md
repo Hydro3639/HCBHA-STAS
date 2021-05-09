@@ -18,4 +18,4 @@
 Charting the complexity of an activated sludge microbiome through a hybrid sequencing strategy
 [High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00937-3) <br>
 
-<br>[Back to Top](Brief introduction)
+
