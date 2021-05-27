@@ -1,4 +1,4 @@
-###Brief introduction
+### Brief introduction
 * HCBHA stands for the Hierachical Clustering Based Hybrid Assembly, which could be applied for the `complete` and  `high-quality/high-contiguity` genome reconstruction from  highly complex ecosystems by integrating the iterative strategy (`hybrid assembly, bining and reads mapping`). The genome reconstruction methods require both the short reads and long reads from the same sample. Please note that the iterative strategy is well described in our previous work [`High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method`](https://github.com/Hydro3639/Iterative-Hybrid-Assembly-for-enrichment-system "https://github.com/Hydro3639/Iterative-Hybrid-Assembly-for-enrichment-system")
 
 * The HCBHA workflow is a `haplotype-resolved genome reconstruction approach`. The key idea is phasing short and long reads into candidate bacterial/archaeal haplotypes and then hybrid assembling these genomes individually. We designed a seven-step workflow to achieve this goal: 1) short and long reads preparation; 2) long-read-only *de novo* assembly, aiming to generate high-contiguity error-prone contigs; 3) initial binning, aiming to obtain candidate genome bins; 4) initial bins polish, aiming to improve contigs accuracy; 5) re-binning, aiming to improve bins accuracy; 6) re-assembly, aiming to further improve contigs contiguity and 7) final binning, aiming to obtain the high-accurate MAGs.
@@ -15,7 +15,7 @@
   * [SeqKit: a cross-platform and ultrafast toolkit for FASTA/Q file manipulation](https://github.com/shenwei356/seqkit)
 #### Citing our paper
 * If you found this iterative haplotype-resolved framework useful in your research, a citation would be appreciated! <br>
-Charting the complexity of an activated sludge microbiome through a hybrid sequencing strategy
+Charting the complexity of an activated sludge microbiome through a hybrid sequencing strategy <br>
 [High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00937-3) <br>
 
 
