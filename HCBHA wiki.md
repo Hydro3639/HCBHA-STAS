@@ -58,7 +58,7 @@ cat test_*_2.fastq > test_2.fastq
 \# LRs mapping and filtering 70 && 70
   ```
   minimap2 -x map-ont -t 40 Refined-bins.fasta ../01-Pre/test_lr.fastq > Refined-bins-mapping.lr.paf 
-  awk -F'[\t]' '!a[$1]++ ($4-$3+1)/$2 >=0.70 && $27<0.30 {print $1"\t"$6}' Refined-bins-mapping.lr.paf > filtered_70_70-lr.paf
+  awk -F'[\t]' '($4-$3+1)/$2 >=0.70 && $27<0.30 {print $1"\t"$6}' Refined-bins-mapping.lr.paf > filtered_70_70-lr.paf
   ```
 \# SRs mapping and filtering 80 && 80
   ```
