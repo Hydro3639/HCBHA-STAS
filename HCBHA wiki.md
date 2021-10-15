@@ -63,7 +63,7 @@ cat test_*_2.fastq > test_2.fastq
 \# SRs mapping and filtering 80 && 80
   ```
   minimap2 -x sr -t 40 Refined-bins.fasta ../01-Pre/test_1.fastq ../01-Pre/test_2.fastq   > Refined-bins-mapping.sr.paf
-  awk '($13~"tp:A:P")  {print $0}' Refined-bins-mapping.sr.paf | awk '($4-$3+1)/$2 >=0.80 && $10/$11 >=0.80 {print $1"\t"$6}' > filtered_80_80-sr.paf
+  cat Refined-bins-mapping.sr.paf | awk '($4-$3+1)/$2 >=0.80 && $10/$11 >=0.80 {print $1"\t"$6}' > filtered_80_80-sr.paf
   ```
 \# Bin clustering
   ```
@@ -153,7 +153,7 @@ coverage of certain bins, so only randomly selected 1 million paired SRs would b
 \# SRs mapping and filtering 80 && 80
   ```
   minimap2 -x sr -t 40 re-bins.fasta ../01-Pre/test_1.fastq ../01-Pre/test_2.fastq  > re-bins-mapping.sr.paf
-  awk '($13~"tp:A:P")  {print $0}' re-bins-mapping.sr.paf | awk '($4-$3+1)/$2 >=0.80 && $10/$11 >=0.80 {print $1"\t"$6}' > filtered_80_80-sr.paf
+  cat re-bins-mapping.sr.paf | awk '($4-$3+1)/$2 >=0.80 && $10/$11 >=0.80 {print $1"\t"$6}' > filtered_80_80-sr.paf
   ```
 \# Bin clustering
   ```
