@@ -1,3 +1,6 @@
+### Note
+When we start this project, the accuarcy of Nanopore sequencing is <90%, but for now, the continuous improvement of Nanopore sequencing accuracy (>95%) make the long-read-only strategy possible, so we simplified the hybrid strategy framwork and developed the long-read-only strategy. Please see [NanoPhase](https://github.com/Hydro3639/NanoPhase) for detailed usage.
+
 ### Brief introduction
 * HCBHA stands for the Hierachical Clustering Based Hybrid Assembly, which could be applied for the `complete` and  `high-quality/high-contiguity` genome reconstruction from  highly complex ecosystems by integrating the iterative strategy (`hybrid assembly, bining and reads mapping`). The genome reconstruction methods require both the short reads and long reads from the same sample. Please note that the iterative strategy is well described in our previous work [`High-Quality Bacterial Genomes of a Partial-Nitritation/Anammox System by an Iterative Hybrid Assembly Method`](https://github.com/Hydro3639/Iterative-Hybrid-Assembly-for-enrichment-system "https://github.com/Hydro3639/Iterative-Hybrid-Assembly-for-enrichment-system")
 
